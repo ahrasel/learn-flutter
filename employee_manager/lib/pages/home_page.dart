@@ -1,11 +1,18 @@
 import 'package:flutter/material.dart';
 
 class HomePage extends StatelessWidget {
+  var _imageLink =
+      'https://images.pexels.com/photos/2610644/pexels-photo-2610644.jpeg?cs=srgb&dl=beautiful-dark-dawn-2610644.jpg&fm=jpg';
+  var _backImage =
+      'https://images.pexels.com/photos/2610644/pexels-photo-2610644.jpeg?cs=srgb&dl=beautiful-dark-dawn-2610644.jpg&fm=jpg';
 
-  var _imageLink = 'https://images.pexels.com/photos/2568413/pexels-photo-2568413.jpeg?cs=srgb&dl=attractive-beautiful-beauty-2568413.jpg&fm=jpg';
-
-  CircleAvatar _circleAvater(String url) {
-    return CircleAvatar(backgroundImage: NetworkImage(url));
+  GestureDetector _circleAvater(String url) {
+    return GestureDetector(
+      onTap: () {
+        print('Click on cirlce avatr');
+      },
+      child: CircleAvatar(backgroundImage: NetworkImage(url)),
+    );
   }
 
   @override
@@ -38,39 +45,74 @@ class HomePage extends StatelessWidget {
                 style: TextStyle(color: Colors.amber),
               ),
               accountName: Text('AH RAsel'),
-              // currentAccountPicture: Image(
-              //   // image: NetworkImage('https://images.pexels.com/photos/2610644/pexels-photo-2610644.jpeg?cs=srgb&dl=beautiful-dark-dawn-2610644.jpg&fm=jpg'),
-              //   image: NetworkImage('https://images.pexels.com/photos/1427581/pexels-photo-1427581.jpeg?cs=srgb&dl=castle-daylight-england-1427581.jpg&fm=jpg'),
-              // ),
-              // currentAccountPicture: CircleAvatar(
-              //   backgroundImage: NetworkImage(
-              //       'https://images.pexels.com/photos/2568413/pexels-photo-2568413.jpeg?cs=srgb&dl=attractive-beautiful-beauty-2568413.jpg&fm=jpg'),
-              // ),
               currentAccountPicture: _circleAvater(_imageLink),
               otherAccountsPictures: <Widget>[
                 _circleAvater(_imageLink),
                 _circleAvater(_imageLink),
-                // CircleAvatar(
-                //   backgroundImage: NetworkImage(
-                //       'https://images.pexels.com/photos/2568413/pexels-photo-2568413.jpeg?cs=srgb&dl=attractive-beautiful-beauty-2568413.jpg&fm=jpg'),
-                // ),
-                // CircleAvatar(
-                //   backgroundImage: NetworkImage(
-                //       'https://images.pexels.com/photos/2568413/pexels-photo-2568413.jpeg?cs=srgb&dl=attractive-beautiful-beauty-2568413.jpg&fm=jpg'),
-                // ),
               ],
               decoration: BoxDecoration(
-                  image: DecorationImage(
-                      image: NetworkImage(
-                          'https://images.pexels.com/photos/2610644/pexels-photo-2610644.jpeg?cs=srgb&dl=beautiful-dark-dawn-2610644.jpg&fm=jpg'),
-                      fit: BoxFit.fill
-                      ),
-                    ),
+                image: DecorationImage(
+                    image: NetworkImage(_backImage), fit: BoxFit.fill),
+              ),
+            ),
+            ListTile(
+              onTap: () {},
+              leading: Icon(Icons.list),
+              title: Text('All Empoloyee'),
+            ),
+            ListTile(
+              onTap: () {},
+              leading: Icon(Icons.add),
+              title: Text('Add Empoloyee'),
+            ),
+            ListTile(
+              onTap: () {
+                print('About');
+              },
+              leading: Icon(Icons.info),
+              title: Text('About'),
             )
           ],
         ),
       ),
-      body: Text('Employee Manager'),
+      body: Container(
+        color: Colors.orange[200],
+        child: ListView(
+          children: <Widget>[
+            Card(
+              child: Row(
+                children: <Widget>[
+                  Padding(
+                    padding: EdgeInsets.all(12.0),
+                    child: _circleAvater(_imageLink),
+                  ),
+                  Expanded(
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: <Widget>[
+                        Text(
+                          'AH Rasel Ahamed',
+                          style: TextStyle(
+                              fontSize: 18.0,
+                              fontWeight: FontWeight.bold,
+                              color: Colors.deepOrange),
+                        ),
+                        Text(
+                          'Flutter Developer',
+                          style: TextStyle(
+                              fontSize: 14.0,
+                              // fontWeight: FontWeight.bold,
+                              color: Colors.deepOrange[500]),
+                        )
+                      ],
+                    ),
+                  )
+                ],
+              ),
+            )
+          ],
+        ),
+      ),
     );
   }
 }
