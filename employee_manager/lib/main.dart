@@ -1,3 +1,4 @@
+import 'package:employee_manager/pages/home_page.dart';
 import 'package:flutter/material.dart';
 
 void main() => runApp(EmployeeManager());
@@ -7,10 +8,9 @@ class EmployeeManager extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      home: Scaffold(
-        
-        body: Text('Employee Manager'),
-      ),
+      home: HomePage(),
     );
   }
 }
+
+
