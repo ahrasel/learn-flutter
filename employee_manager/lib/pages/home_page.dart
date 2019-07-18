@@ -1,17 +1,10 @@
 import 'package:employee_manager/constants/strings.dart';
+import 'package:employee_manager/styles/styles.dart';
 import 'package:employee_manager/widgets/app_drawer.dart';
 import 'package:employee_manager/widgets/common_widget.dart';
 import 'package:flutter/material.dart';
 
 class HomePage extends StatelessWidget {
-// GestureDetector _circleAvater(String url) {
-//     return GestureDetector(
-//       onTap: () {
-//         print('Click on cirlce avatr');
-//       },
-//       child: CircleAvatar(backgroundImage: NetworkImage(url)),
-//     );
-//   }
 
   @override
   Widget build(BuildContext context) {
@@ -22,7 +15,6 @@ class HomePage extends StatelessWidget {
         actions: <Widget>[
           IconButton(
             icon: Icon(Icons.info),
-            // color: Colors.amber,
             onPressed: () {
               print('this is info icon button');
             },
@@ -52,16 +44,12 @@ class HomePage extends StatelessWidget {
                       children: <Widget>[
                         Text(
                           'AH Rasel Ahamed',
-                          style: TextStyle(
-                              fontSize: 18.0,
-                              fontWeight: FontWeight.bold,
-                              color: Colors.deepOrange),
+                          style: myStyle(Colors.red)
                         ),
                         Text(
                           'Flutter Developer',
                           style: TextStyle(
                               fontSize: 14.0,
-                              // fontWeight: FontWeight.bold,
                               color: Colors.deepOrange[500]),
                         )
                       ],
