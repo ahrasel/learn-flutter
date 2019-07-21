@@ -1,65 +1,62 @@
-import 'package:employee_manager/constants/strings.dart';
-import 'package:employee_manager/styles/styles.dart';
-import 'package:employee_manager/widgets/app_drawer.dart';
-import 'package:employee_manager/widgets/common_widget.dart';
+import 'package:employee_manager/helpers/color_converter.dart';
+import 'package:employee_manager/pages/add_employee.dart';
+import 'package:employee_manager/wigets/drawer.dart';
+import 'package:employee_manager/wigets/employee_card.dart';
 import 'package:flutter/material.dart';
 
-class HomePage extends StatelessWidget {
+class HomePage extends StatefulWidget {
+  @override
+  _HomePageState createState() => _HomePageState();
+}
+
+class _HomePageState extends State<HomePage> {
+  // List<String> _employees = ['Rasel Ahamed', 'Jon Doe'];
+  List<String> _employees = [];
+
+
+  _getEmployeeFormPref() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+
+    _employees = prefs.getStringList('employess');
+    print(_employees);
+    // print(prefs.getStringList('employess'));
+
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    _getEmployeeFormPref();
+  }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: Colors.deepOrange,
-        title: Text('Employee Manager'),
-        actions: <Widget>[
-          IconButton(
-            icon: Icon(Icons.info),
-            onPressed: () {
-              print('this is info icon button');
-            },
-          )
-        ],
+        
+        title: Text('Manage Employee'),
+        backgroundColor: toRGB('2980b9'),
       ),
       floatingActionButton: FloatingActionButton(
-        backgroundColor: Colors.deepOrange,
-        onPressed: () {},
+        onPressed: () {
+          Navigator.push(
+            context,
+            MaterialPageRoute(builder: (context) => AddEmployee()),
+          );
+        },
         child: Icon(Icons.add),
+        backgroundColor: Colors.blue,
       ),
       drawer: AppDrawer(),
       body: Container(
-        color: Colors.orange[200],
-        child: ListView(
-          children: <Widget>[
-            Card(
-              child: Row(
-                children: <Widget>[
-                  Padding(
-                    padding: EdgeInsets.all(12.0),
-                    child: kCircleAvater(kProfileImage),
-                  ),
-                  Expanded(
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: <Widget>[
-                        Text(
-                          'AH Rasel Ahamed',
-                          style: myStyle(Colors.red)
-                        ),
-                        Text(
-                          'Flutter Developer',
-                          style: TextStyle(
-                              fontSize: 14.0,
-                              color: Colors.deepOrange[500]),
-                        )
-                      ],
-                    ),
-                  )
-                ],
-              ),
-            )
-          ],
-        ),
+        decoration: BoxDecoration(
+            gradient: LinearGradient(
+                begin: Alignment.topRight,
+                end: Alignment.bottomLeft,
+                colors: [Colors.blue, Colors.red],
+                ),),
+        // color: Colors.blue[200],
+        child: EmployeeCard(employees: _employees),
       ),
     );
   }

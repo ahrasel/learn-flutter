@@ -4,11 +4,13 @@ import 'package:flutter/material.dart';
 void main() => runApp(EmployeeManager());
 
 class EmployeeManager extends StatelessWidget {
-   @override
+  @override
   Widget build(BuildContext context) {
     return MaterialApp(
-        home: HomePage()
+      debugShowCheckedModeBanner: false,
+      home: HomePage(),
     );
   }
 }
+
 
