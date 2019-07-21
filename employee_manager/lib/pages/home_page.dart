@@ -3,7 +3,6 @@ import 'package:employee_manager/pages/add_employee.dart';
 import 'package:employee_manager/wigets/drawer.dart';
 import 'package:employee_manager/wigets/employee_card.dart';
 import 'package:flutter/material.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 
 class HomePage extends StatefulWidget {
   @override
@@ -11,23 +10,11 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
-  // List<String> _employees = ['Rasel Ahamed', 'Jon Doe'];
-  List<String> _employees = [];
-
-
-  _getEmployeeFormPref() async {
-    SharedPreferences prefs = await SharedPreferences.getInstance();
-
-    _employees = prefs.getStringList('employess');
-    print(_employees);
-    // print(prefs.getStringList('employess'));
-
-  }
+  List<String> _employees = ['Rasel Ahamed', 'Jon Doe'];
 
   @override
   void initState() {
     super.initState();
-    _getEmployeeFormPref();
   }
 
   @override

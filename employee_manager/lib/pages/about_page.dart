@@ -17,7 +17,7 @@ class AboutPage extends StatelessWidget {
             children: <Widget>[
               Expanded(
                 child: Image.network(
-                  'http://winwinsp.com/images/logo.png',
+                  kWwspLogo,
                   width: 200.00,
                 ),
               ),
@@ -26,7 +26,7 @@ class AboutPage extends StatelessWidget {
                   child: Column(
                     children: <Widget>[
                       Text(
-                        'Win-Wiin Service Provider',
+                        kCompanyName,
                         style: TextStyle(
                           color: Colors.deepOrange,
                           fontSize: 24.0,
@@ -34,7 +34,7 @@ class AboutPage extends StatelessWidget {
                         ),
                         ),
                       Text(
-                        'wwsp@email.com',
+                        kCompanyEmail,
                         style: TextStyle(
                           color: Colors.orange,
                           fontSize: 18.0,
@@ -42,7 +42,7 @@ class AboutPage extends StatelessWidget {
                         ),
                         ),
                       Text(
-                        '+88014256544554',
+                        kCompanyPhoneNumber,
                         style: TextStyle(
                           color: Colors.deepOrange,
                           fontSize: 16.0,

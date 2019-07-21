@@ -1,6 +1,5 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 
 class AddEmployee extends StatefulWidget {
 
@@ -23,16 +22,7 @@ class _AddEmployeeState extends State<AddEmployee> {
   }
 
   _saveEmployee() async {
-    SharedPreferences prefs = await SharedPreferences.getInstance();
-    List<String> employees = [];
-    if (prefs.getStringList('employess') != null) {
-      employees = prefs.getStringList('employess');
-      _nameTextController.text.isNotEmpty ? employees.add(_nameTextController.text) : '';
-    }
-    
-    await prefs.setStringList('employess', employees);
     _nameTextController.text = '';
-    print(prefs.getStringList('employess'));
     
   }
 
