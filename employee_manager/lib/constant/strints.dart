@@ -13,3 +13,8 @@ const kWwspLogo = 'http://winwinsp.com/images/logo.png';
 const kCompanyName = 'Win-Wiin Service Provider';
 const kCompanyEmail = 'wwsp@email.com';
 const kCompanyPhoneNumber = '+88014256544554';
+
+//for loggedin page
+ const kLoggedInKey = 'isLoggedIn';
+ const kLoginBack = 'https://images.pexels.com/photos/2268728/pexels-photo-2268728.jpeg?cs=srgb&dl=building-pink-wall-2268728.jpg&fm=jpg';
+ const kwwspLogin = 'http://winwinsp.com/images/logo.png';
