@@ -39,6 +39,7 @@ class _EmployeeManagerState extends State<EmployeeManager> {
       page = LoginPage();
     }
     return MaterialApp(
+      debugShowCheckedModeBanner: false,
         // home: HomePage()
         home: page);
   }
