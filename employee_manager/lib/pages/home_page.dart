@@ -1,9 +1,12 @@
+import 'dart:convert';
+
 import 'package:employee_manager/helpers/color_converter.dart';
 import 'package:employee_manager/models/db_context.dart';
 import 'package:employee_manager/pages/add_employee.dart';
 import 'package:employee_manager/wigets/drawer.dart';
 import 'package:employee_manager/wigets/employee_card.dart';
 import 'package:flutter/material.dart';
+import 'package:http/http.dart' as http; // for http client
 
 class HomePage extends StatefulWidget {
   @override
@@ -30,10 +33,24 @@ class _HomePageState extends State<HomePage> {
     // print(_employees[1]['name']);    
   }
 
+  _getEmployeeFormServer() async{
+    var url = 'https://jsonplaceholder.typicode.com/users';
+    var response = await http.get(url);
+    print(response.statusCode);
+    print(response.body);
+
+    setState(() {
+      if (response.statusCode == 200) {
+        _employees = jsonDecode(response.body);
+      }
+    });
+  }
+
   @override
   void initState() {
     super.initState();
     _getEmployeeFormDb();
+    // _getEmployeeFormServer();
   }
 
   @override
@@ -64,7 +81,7 @@ class _HomePageState extends State<HomePage> {
                 ),),
         // color: Colors.blue[200],
         child: _employees.length > 0  ?
-          EmployeeCard(employees: _employees) :
+          EmployeeCard(employees: _employees) : // condition ? true : false
           Center(
             child: Text('No Employee Found', style: TextStyle(
                 color: Colors.amber,

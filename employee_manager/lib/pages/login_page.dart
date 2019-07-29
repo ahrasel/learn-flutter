@@ -46,7 +46,7 @@ class _LoginPageState extends State<LoginPage> {
     //show an error message to user
     final snackBar = SnackBar(
       content: Text('Invalid Email Or password'),
-      backgroundColor: Colors.red,
+      backgroundColor: Colors.black,
       action: SnackBarAction(
         label: 'Close',
         onPressed: () {
@@ -57,6 +57,7 @@ class _LoginPageState extends State<LoginPage> {
 
     // Find the Scaffold in the widget tree and use
     // it to show a SnackBar.
+    // Scaffold.of(context).showSnackBar(snackbar);
     _scaffoldKey.currentState.showSnackBar(snackBar);
   }
 
