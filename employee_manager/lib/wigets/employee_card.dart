@@ -5,7 +5,7 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 class EmployeeCard extends StatelessWidget {
   const EmployeeCard({Key key, this.employees});
 
-  final List<String> employees;
+  final dynamic employees;
 
   Widget _buildEmployee(BuildContext context, int index) {
     return Card(
@@ -30,12 +30,12 @@ class EmployeeCard extends StatelessWidget {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: <Widget>[
-                  Text(employees[index],
+                  Text(employees[index]['name'],
                       style: TextStyle(
                           color: Colors.pink,
                           fontSize: 18.0,
                           fontWeight: FontWeight.bold)),
-                  Text('ahrasel95@gmail.com',
+                  Text(employees[index]['email'],
                       style: TextStyle(
                         color: Colors.red,
                         fontSize: 14.0,

@@ -1,4 +1,5 @@
 import 'package:employee_manager/helpers/color_converter.dart';
+import 'package:employee_manager/models/db_context.dart';
 import 'package:employee_manager/pages/add_employee.dart';
 import 'package:employee_manager/wigets/drawer.dart';
 import 'package:employee_manager/wigets/employee_card.dart';
@@ -10,11 +11,29 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
-  List<String> _employees = ['Rasel Ahamed', 'Jon Doe'];
+  // List<String> _employees = ['Rasel Ahamed', 'Jon Doe'];
+  var _employees = [];
+
+  _getEmployeeFormDb() async {
+    var dbContext = DbContext();
+    var employees =await dbContext.getAllEmployees();
+
+    if(employees != null){
+      setState(() {
+        _employees = employees;
+      });
+    }else{
+      _employees = [];
+    }
+
+    print(_employees.length);
+    // print(_employees[1]['name']);    
+  }
 
   @override
   void initState() {
     super.initState();
+    _getEmployeeFormDb();
   }
 
   @override
@@ -44,7 +63,16 @@ class _HomePageState extends State<HomePage> {
                 colors: [Colors.blue, Colors.red],
                 ),),
         // color: Colors.blue[200],
-        child: EmployeeCard(employees: _employees),
+        child: _employees.length > 0  ?
+          EmployeeCard(employees: _employees) :
+          Center(
+            child: Text('No Employee Found', style: TextStyle(
+                color: Colors.amber,
+                fontSize: 24.0,
+                fontWeight: FontWeight.bold
+              ),
+            ),
+          ),
       ),
     );
   }

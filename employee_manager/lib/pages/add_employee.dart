@@ -1,3 +1,6 @@
+import 'package:employee_manager/models/db_context.dart';
+import 'package:employee_manager/models/employee.dart';
+import 'package:employee_manager/pages/home_page.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
@@ -9,6 +12,9 @@ class AddEmployee extends StatefulWidget {
 
 class _AddEmployeeState extends State<AddEmployee> {
   TextEditingController _nameTextController = TextEditingController();
+  TextEditingController _emailTextController = TextEditingController();
+  TextEditingController _phoneTextController = TextEditingController();
+  final _scaffoldKey = GlobalKey<ScaffoldState>();
 
   InputDecoration _customTextFieldDecoration(IconData icon, String hint, String label) {
     return InputDecoration(
@@ -22,9 +28,49 @@ class _AddEmployeeState extends State<AddEmployee> {
   }
 
   _saveEmployee() async {
-    _nameTextController.text = '';
-    
+    //get employe infomation for input
+    var name = _nameTextController.text;
+    var email = _emailTextController.text;
+    var phone = _phoneTextController.text;
+
+    // save to database
+    var res=0;
+    var dbContext = DbContext();
+    res = await dbContext.saveEmployee(Employee(name: name, email: email, phoneNumber: phone));
+
+    if (res > 0) {
+      //clear input field
+      _nameTextController.text = '';
+      _emailTextController.text = '';
+      _phoneTextController.text = '';
+
+       Navigator.push(
+          context,
+          MaterialPageRoute(builder: (context) => HomePage()),
+        );
+    }else{
+      _showSncakBar();
+    }
   }
+
+   _showSncakBar() {
+    //show an error message to user
+    final snackBar = SnackBar(
+      content: Text('Something wrong!!!'),
+      backgroundColor: Colors.red,
+      action: SnackBarAction(
+        label: 'Close',
+        onPressed: () {
+          // Some code to undo the change.
+        },
+      ),
+    );
+
+    // Find the Scaffold in the widget tree and use
+    // it to show a SnackBar.
+    _scaffoldKey.currentState.showSnackBar(snackBar);
+  }
+
 
   @override
   Widget build(BuildContext context) {
@@ -72,6 +118,7 @@ class _AddEmployeeState extends State<AddEmployee> {
                   SizedBox(height: 10),
                   TextField(
                     style: TextStyle(color: Colors.white),
+                    controller: _emailTextController,
                     autofocus: true,
                     cursorColor: Colors.white,
                     keyboardType: TextInputType.emailAddress,
@@ -81,6 +128,7 @@ class _AddEmployeeState extends State<AddEmployee> {
                   SizedBox(height: 10),
                   SizedBox(height: 10),
                   TextField(
+                  controller: _phoneTextController,
                     style: TextStyle(color: Colors.white),
                     autofocus: true,
                     cursorColor: Colors.white,

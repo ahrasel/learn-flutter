@@ -3,34 +3,68 @@ import 'package:employee_manager/pages/home_page.dart';
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-class LoginPage extends StatelessWidget {
-  TextEditingController _emailController = TextEditingController();
-  TextEditingController _passwordController = TextEditingController();
-  final _formKey = GlobalKey<FormState>();
+class LoginPage extends StatefulWidget {
+  @override
+  _LoginPageState createState() => _LoginPageState();
+}
 
-  _userLoggedIn(BuildContext context) async {
+class _LoginPageState extends State<LoginPage> {
+  TextEditingController _emailController = TextEditingController();
+
+  TextEditingController _passwordController = TextEditingController();
+
+  final _formKey = GlobalKey<FormState>();
+  final _scaffoldKey = GlobalKey<ScaffoldState>();
+  BuildContext appContext;
+
+  _userLoggedIn() async {
     var email = _emailController.text;
     var password = _passwordController.text;
 
-    if (_formKey.currentState.validate()) {
-        // If the form is valid, display a Snackbar.
-        // Scaffold.of(context)
-        //     .showSnackBar(SnackBar(content: Text('Email Found')));
-        print(email);
-      }
-
     print('Email : $email And Your Password: $password');
 
-    _emailController.text = '';
-    _passwordController.text = '';
+    if (email.isEmpty || password.isEmpty) {
+      _showSncakBar();
+    } else {
+      _emailController.text = '';
+      _passwordController.text = '';
 
-    // SharedPreferences prefs = await SharedPreferences.getInstance();
-    // prefs.setBool(kLoggedInKey, true);
+      SharedPreferences prefs = await SharedPreferences.getInstance();
+      prefs.setBool(kLoggedInKey, true);
+      _navigate(HomePage());
+    }
+  }
+
+  _navigate(Widget page) {
+    Navigator.push(
+      appContext,
+      MaterialPageRoute(builder: (appContext) => page),
+    );
+  }
+
+  _showSncakBar() {
+    //show an error message to user
+    final snackBar = SnackBar(
+      content: Text('Invalid Email Or password'),
+      backgroundColor: Colors.red,
+      action: SnackBarAction(
+        label: 'Close',
+        onPressed: () {
+          // Some code to undo the change.
+        },
+      ),
+    );
+
+    // Find the Scaffold in the widget tree and use
+    // it to show a SnackBar.
+    _scaffoldKey.currentState.showSnackBar(snackBar);
   }
 
   @override
   Widget build(BuildContext context) {
+    appContext = context;
     return Scaffold(
+      key: _scaffoldKey,
       body: SafeArea(
         child: Container(
           decoration: BoxDecoration(
@@ -56,16 +90,14 @@ class LoginPage extends StatelessWidget {
                         autofocus: true,
                         style: TextStyle(color: Colors.blue, fontSize: 18),
                         keyboardType: TextInputType.emailAddress,
-                        validator: (val){
-                          if(val.isEmpty){
+                        validator: (val) {
+                          if (val.isEmpty) {
                             return 'Email equired';
                           }
                           return null;
                         },
                         decoration: InputDecoration(
-                          errorStyle: TextStyle(
-                            fontSize: 16
-                          ),
+                            errorStyle: TextStyle(fontSize: 16),
                             border: OutlineInputBorder(),
                             hintText: 'Enter Email',
                             fillColor: Colors.deepOrange[200],
@@ -98,13 +130,9 @@ class LoginPage extends StatelessWidget {
                       RaisedButton(
                         onPressed: () {
                           // print('login');
-                          _userLoggedIn(context);
-
-
-                          // Navigator.push(
-                          //   context,
-                          //   MaterialPageRoute(builder: (context) => HomePage()),
-                          // );
+                          if (_formKey.currentState.validate()) {
+                            _userLoggedIn();
+                          }
                         },
                         color: Colors.blue,
                         padding: EdgeInsets.all(15),

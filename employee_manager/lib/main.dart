@@ -13,13 +13,13 @@ class EmployeeManager extends StatefulWidget {
 }
 
 class _EmployeeManagerState extends State<EmployeeManager> {
-  Widget page = null;
+  Widget page;
 
   bool isLogged = false;
 
   _logedInStatus() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
-    print(prefs.getBool(kLoggedInKey));
+    // print(prefs.getBool(kLoggedInKey));
     if (prefs.getBool(kLoggedInKey) != null) {
       if (prefs.getBool(kLoggedInKey) == true) {
         setState(() {
@@ -30,8 +30,14 @@ class _EmployeeManagerState extends State<EmployeeManager> {
   }
 
   @override
-  Widget build(BuildContext context) {
+  void initState() {
+    super.initState();
     _logedInStatus();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    
 
     if (isLogged) {
       page = HomePage();
