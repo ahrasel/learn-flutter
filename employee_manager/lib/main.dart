@@ -1,9 +1,11 @@
+
 import 'package:employee_manager/pages/home_page.dart';
 import 'package:employee_manager/pages/login_page.dart';
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'constant/strints.dart';
 
-import 'constant/strints.dart'; // for shared oreferences
+import 'package:geolocator/geolocator.dart'; //for geolocator
 
 void main() => runApp(EmployeeManager());
 
@@ -29,10 +31,24 @@ class _EmployeeManagerState extends State<EmployeeManager> {
     }
   }
 
+  _getLocation() async {
+    Position position = await Geolocator()
+                          .getCurrentPosition(desiredAccuracy:LocationAccuracy.high);
+
+    Geolocator geolocator = Geolocator()..forceAndroidLocationManager = true;
+    GeolocationStatus geolocationStatus  = await geolocator.checkGeolocationPermissionStatus();
+
+    print(geolocationStatus);
+
+    print(position);
+    print(position.timestamp);
+  }
+
   @override
   void initState() {
     super.initState();
     _logedInStatus();
+    _getLocation();
   }
 
   @override
